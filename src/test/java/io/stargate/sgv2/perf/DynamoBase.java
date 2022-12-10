@@ -20,7 +20,7 @@ import org.junit.jupiter.api.*;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class DynamoBase {
   protected AmazonDynamoDB proxyClient;
-  private static final String AUTH_TOKEN = "d74be0b7-e142-4d17-a2b6-aaee14c77353";
+  private static final String AUTH_TOKEN = "3fd69495-767d-4846-9236-46aee5e17565";
 
   @BeforeEach
   public void setup() {
@@ -69,9 +69,9 @@ public class DynamoBase {
   }
 
   protected String getSaltString() {
-    String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+    String SALTCHARS = "ABCDEFGHI";
     StringBuilder salt = new StringBuilder();
-    Random rnd = new Random();
+    Random rnd = new Random(1234);
     while (salt.length() < 18) { // length of the random string.
       int index = (int) (rnd.nextFloat() * SALTCHARS.length());
       salt.append(SALTCHARS.charAt(index));
