@@ -15,7 +15,7 @@ We recommend using docker to launch the program. We provided you with a docker-c
 
 ### Step 2: Generate authentication token
 
-Then you should be able to visit [Auth API](http://localhost:8081/swagger-ui/#/auth/createToken) to generate a token with
+Then you should be able to visit [Auth API: /v1/auth/token/generate](http://localhost:8081/swagger-ui/#/auth/createToken_1) to generate a token with
 the following payload:
 
 ```json
@@ -25,7 +25,24 @@ the following payload:
 }
 ```
 
-### Step 3: Add endpoint and auth token to DynamoDB client
+You will get a response that looks like this:
+
+```json
+{
+  "authToken": "726a2b56-88e4-4ada-91b6-e9617044ad36"
+}
+```
+
+Copy the generated token value (i.e. `726a2b56-88e4-4ada-91b6-e9617044ad36` in this example) since we will need this token to authenticate all our requests.
+
+### Step 3: Create Keyspace
+
+If you haven't done so, invoke [/v2/keyspace/create API](http://localhost:8082/swagger-ui/#/default/post_v2_keyspace_create) to create a keyspace.
+Note that you need to first click on `Authorize` and enter the auth token generated just now.
+
+The generated keyspace has a fixed name, "dynamodb". You can also manually create the keyspace in Apache Cassandra using `cqlsh`.
+
+### Step 4: Add endpoint and auth token to DynamoDB client
 
 You should set the `aws.accessKeyId` property to be your generated token, and `aws.secretKey` to any string. Below
 is an example in Java.
